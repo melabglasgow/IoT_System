@@ -1,0 +1,43 @@
+
+// Read Functions:
+
+{
+    "a000/0/a001": function (m) {
+        return m['a000']['a001'];
+    }
+}
+
+
+
+// Write Functions:
+
+{
+    "a000/0/a002": function (value, write) {
+        var length = value.length;
+        
+        if(length>10){
+            var array = [];
+            //array[0] = parseInt(value[0],16);
+            for(i = 0;i<length;i++){
+                array[i] = i%10;
+            }
+            write('a000/a002', array);
+        }
+        else {
+            write('a000/a002',[Number(value)]);
+        }
+    },
+    "a000/0/a003": function (value, write) {
+        if (!value.localeCompare('"START"')) {
+            data = 1;
+        } 
+        else if (!value.localeCompare('"STOP"')) {
+            data = 0;
+        }
+        else {
+            data = 2;
+        }
+        // write it back to the color characteristic
+        write('a000/a003', [data]);
+    }
+}

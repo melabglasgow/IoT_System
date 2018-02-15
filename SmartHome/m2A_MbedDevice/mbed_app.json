@@ -1,0 +1,104 @@
+{
+    "config": {
+        "network-interface":{
+            "help": "Options are ETHERNET, WIFI_ESP8266, WIFI_ODIN, WIFI_IDW0XX1, MESH_LOWPAN_ND, MESH_THREAD, CELLULAR_ONBOARD",
+            "value": "WIFI_IDW0XX1"
+        },
+        "mesh_radio_type": {
+            "help": "options are ATMEL, MCR20, SPIRIT1, EFR32",
+            "value": "ATMEL"
+        },
+        "wifi-ssid": {
+            "help": "WiFi SSID",
+            "value": "\"network\""
+        },
+        "wifi-password": {
+            "help": "WiFi Password",
+            "value": "\"password\""
+        },
+        "wifi-tx": {
+            "help": "TX pin for serial connection to external device",
+            "value": "D1"
+        },
+        "wifi-rx": {
+            "help": "RX pin for serial connection to external device",
+            "value": "D0"
+        },
+		"rgb-resource":{
+            "help": "(true) if the resource is implemented or (false) if not",
+			"macro_name": "RGB_RESOURCE",
+            "value": true
+        },
+		"rgb-pins":{
+            "help": "the three pins in order RED,BLUE,GREEN",
+			"macro_name": "RGB_PINS",
+            "value": "PB_2,PB_15,PB_1"
+        },
+		"sense-resource":{
+            "help": "(true) if the resource is implemented or (false) if not",
+			"macro_name": "SENSE_RESOURCE",
+            "value": true
+        },
+		"sense-pins":{
+            "help": "the i2C pins for the x_nucleo_iks01a1 shield",
+			"macro_name": "SENSE_PINS",
+            "value": "D14, D15"
+        },
+		"led-resource":{
+            "help": "(true) if the resource is implemented or (false) if not",
+			"macro_name": "LED_RESOURCE",
+            "value": true
+        },
+		"led-pin":{
+            "help": "The pin name of the built-in board LED",
+			"macro_name": "LED_PIN",
+            "value": "LED1"
+        },
+		"button-resource":{
+            "help": "(true) if the resource is implemented or (false) if not",
+			"macro_name": "BUTTON_RESOURCE",
+            "value": true
+        },
+		"button-pin":{
+            "help": "The pin for the Button Interrupt",
+			"macro_name": "BUTTON_PIN",
+            "value": "USER_BUTTON"
+        },
+		"timer-resource":{
+            "help": "(true) if the resource is implemented or (false) if not",
+			"macro_name": "TIMER_RESOURCE",
+            "value": true
+		},
+		"prediction-resource":{
+            "help": "(true) if the resource is implemented or (false) if not",
+			"macro_name": "PRED_RESOURCE",
+            "value": true
+		}
+    },
+    "macros": ["MBEDTLS_USER_CONFIG_FILE=\"mbedtls_mbed_client_config.h\"","MBEDTLS_TEST_NULL_ENTROPY","MBEDTLS_NO_DEFAULT_ENTROPY_SOURCES","EMPTY_WIFI_PASSWORD"],
+    "target_overrides": {
+        "*": {
+            "target.features_add": ["NANOSTACK", "LOWPAN_ROUTER", "COMMON_PAL"],
+            "platform.stdio-baud-rate": 115200,
+            "platform.stdio-convert-newlines": true,
+            "mbed-mesh-api.6lowpan-nd-channel-page": 0,
+            "mbed-mesh-api.6lowpan-nd-channel": 12,
+            "mbed-trace.enable": 0
+        },
+        "NUCLEO_F401RE": {
+            "wifi-tx": "D8",
+            "wifi-rx": "D2"
+        },
+        "NUCLEO_F411RE": {
+            "wifi-tx": "PA_11",
+            "wifi-rx": "PA_12"
+        },
+        "UBLOX_EVK_ODIN_W2": {
+            "target.device_has_remove": ["EMAC"]
+        },
+        "UBLOX_C030_U201": {
+            "lwip.ppp-enabled": true,
+            "ppp-cell-iface.apn-lookup": true
+        }
+    }
+}

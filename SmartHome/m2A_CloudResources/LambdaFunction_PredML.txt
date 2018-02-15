@@ -1,0 +1,31 @@
+import boto3
+import os
+import sys
+
+iot_client = boto3.client('iot-data')
+ml_client = boto3.client('machinelearning')
+
+def lambda_handler(event, context):
+
+	path = "/7/0/2"	#Desired temperature path (PUT capability)
+	ep = event['ep']
+
+	temperature = str(event['value']['temperature'])
+	humidity = str(event['value']['humidity'])
+	
+	response = ml_client.predict(
+		MLModelId='ml-AYDmpACyTG4',
+		Record={
+			'Internal Temperature': temperature,
+			'Internal humidity': humidity
+		},
+		PredictEndpoint='https://realtime.machinelearning.eu-west-1.amazonaws.com'
+	)
+	#print response
+	
+	#value = str(response)
+	value = str(response['Prediction']['predictedValue'])
+	mod_payload = "{\"path\":\""+ path +"\", \"ep\":\""+ ep +"\",\"coap_verb\":\"put\", \"new_value\":\""+ value +"\"}"
+	bridge_topic = "mbed/put/test/"+ ep + path
+	
+	response = iot_client.publish(topic=bridge_topic,qos=1,payload=mod_payload)

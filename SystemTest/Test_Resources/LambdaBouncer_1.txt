@@ -1,0 +1,18 @@
+import boto3
+import os
+import sys
+
+iot_client = boto3.client('iot-data')
+
+def handler(event, context):
+
+	path = "/a000/0/a002"
+	ep = event['ep']
+	
+	#print response
+	value = str(event['value'])
+	#value = str(1)
+	mod_payload = "{\"path\":\""+ path +"\", \"ep\":\""+ ep +"\",\"coap_verb\":\"put\", \"new_value\":\""+ value +"\"}"
+	bridge_topic = "mbed/put/test/"+ ep + path
+	
+	response = iot_client.publish(topic=bridge_topic,qos=1,payload=mod_payload)

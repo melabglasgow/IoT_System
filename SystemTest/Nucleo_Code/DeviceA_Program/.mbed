@@ -1,0 +1,3 @@
+TARGET=nucleo_f401re
+TOOLCHAIN=GCC_ARM
+ROOT=.

@@ -1,0 +1,12 @@
+import boto3
+import os
+import sys
+
+iot_client = boto3.client('iot-data')
+
+def lambda_handler(event, context):
+
+	value = str(1)
+	topic = "Nucleo/direct/ping-in"
+	
+	response = iot_client.publish(topic=topic,qos=1,payload=value)

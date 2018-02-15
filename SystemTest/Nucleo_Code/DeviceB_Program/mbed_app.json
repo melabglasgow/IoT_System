@@ -1,0 +1,80 @@
+{
+    "config": {
+        "network-interface":{
+            "help": "Options are ETHERNET, WIFI_ESP8266, WIFI_ODIN, WIFI_IDW01M1, MESH_LOWPAN_ND, MESH_THREAD, CELLULAR_ONBOARD",
+            "value": "WIFI_IDW0XX1"
+        },
+        "mesh_radio_type": {
+            "help": "options are ATMEL, MCR20, SPIRIT1, EFR32",
+            "value": "ATMEL"
+        },
+        "wifi-ssid": {
+            "help": "WiFi SSID",
+            "value": "\"yourSSID\""
+        },
+        "wifi-password": {
+            "help": "WiFi Password",
+            "value": "\"yourPass\""
+        },
+        "wifi-tx": {
+            "help": "TX pin for serial connection to external device",
+            "value": "D1"
+        },
+        "wifi-rx": {
+            "help": "RX pin for serial connection to external device",
+            "value": "D0"
+        },
+		"rgb-resource":{
+            "help": "(true) if the resource is implemented o and (false) if not",
+			"macro_name": "RGB_RESOURCE",
+            "value": true
+        },
+		"mems-resource":{
+            "help": "(true) if the resource is implemented o and (false) if not",
+			"macro_name": "MEMS_RESOURCE",
+            "value": true
+        },
+		"led-resource":{
+            "help": "(true) if the resource is implemented o and (false) if not",
+			"macro_name": "LED_RESOURCE",
+            "value": true
+        },
+		"button-resource":{
+            "help": "(true) if the resource is implemented o and (false) if not",
+			"macro_name": "BUTTON_RESOURCE",
+            "value": true
+        },
+		"timer-resource":{
+            "help": "(true) if the resource is implemented o and (false) if not",
+			"macro_name": "TIMER_RESOURCE",
+            "value": true
+		}	
+    },
+    "macros": ["MBEDTLS_USER_CONFIG_FILE=\"mbedtls_mbed_client_config.h\"","MBEDTLS_TEST_NULL_ENTROPY","MBEDTLS_NO_DEFAULT_ENTROPY_SOURCES","EMPTY_WIFI_PASSWORD"],
+    "target_overrides": {
+        "*": {
+            "target.features_add": ["NANOSTACK", "LOWPAN_ROUTER", "COMMON_PAL"],
+            "platform.stdio-baud-rate": 115200,
+            "platform.stdio-convert-newlines": true,
+            "mbed-mesh-api.6lowpan-nd-channel-page": 0,
+            "mbed-mesh-api.6lowpan-nd-channel": 12,
+            "mbed-trace.enable": 0,
+			"mbed-client.sn-coap-max-blockwise-payload-size": 1024
+        },
+        "NUCLEO_F401RE": {
+            "wifi-tx": "D8",
+            "wifi-rx": "D2"
+        },
+        "NUCLEO_F411RE": {
+            "wifi-tx": "PA_11",
+            "wifi-rx": "PA_12"
+        },
+        "UBLOX_EVK_ODIN_W2": {
+            "target.device_has_remove": ["EMAC"]
+        },
+        "UBLOX_C030_U201": {
+            "lwip.ppp-enabled": true,
+            "ppp-cell-iface.apn-lookup": true
+        }
+    }
+}

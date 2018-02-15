@@ -1,0 +1,7 @@
+mbed/
+BUILD/
+MQTT/
+NetworkSocketAPI/
+X_NUCLEO_IDW01M1v2/
+X_NUCLEO_IKS01A1/
+.temp/

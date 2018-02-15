@@ -1,0 +1,2 @@
+This project is originally got from https://developer.mbed.org/teams/ST/code/IDW01M1_Cloud_IBM/
+It was completely adopted to Amazon AWS services. IBM IoT service connection is not supported.
